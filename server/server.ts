@@ -1,13 +1,17 @@
 import Hapi from '@hapi/hapi'
 import { ApolloServer, ApolloServerPluginStopHapiServer } from 'apollo-server-hapi'
+import { makeExecutableSchema } from '@graphql-tools/schema'
 import typeDefs from './schema'
 import resolvers from './resolvers'
+import DatabaseApi from './apis/database'
 
 async function startApolloServer() {
   const app = Hapi.server({ port: 4000 })
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    dataSources: () => ({
+      databaseApi: new DatabaseApi(),
+    }),
+    schema: makeExecutableSchema({ typeDefs, resolvers }),
     plugins: [ApolloServerPluginStopHapiServer({ hapiServer: app })],
   })
 

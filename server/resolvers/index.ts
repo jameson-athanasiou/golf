@@ -1,7 +1,3 @@
-export default {
-  Query: {
-    something: () => {
-      return { status: 'ok' }
-    },
-  },
-}
+import course from './course'
+
+export default [course]

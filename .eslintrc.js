@@ -7,10 +7,12 @@ module.exports = {
   // parserOptions: {
   //   project: './tsconfig.eslint.json',
   // },
+  ignorePatterns: ['build', 'node_modules', 'types.generated.ts'],
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     '@typescript-eslint/semi': ['error', 'never'],
     'import/extensions': 0,
+    'import/prefer-default-export': 0,
     indent: ['error', 2],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],

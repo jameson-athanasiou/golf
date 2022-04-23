@@ -1,0 +1,11 @@
+
+generates:
+  ./types.generated.ts:
+    schema: 
+      - './server/schema/**/*.ts'
+      - '!./server/schema/index.ts'
+    plugins: 
+      - typescript
+      - typescript-resolvers
+require:
+  - ts-node/register

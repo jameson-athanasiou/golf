@@ -10,7 +10,7 @@ const SOMETHING = gql`
 `
 
 const Home = () => {
-  const { loading, error, data } = useQuery(SOMETHING)
+  const { data } = useQuery(SOMETHING)
 
   console.log(data)
 

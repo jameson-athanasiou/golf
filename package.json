@@ -6,7 +6,10 @@
   "scripts": {
     "build:client": "snowpack build",
     "dev": "npm run remove-dist && concurrently 'npm run dev:server' 'snowpack dev --polyfill-node'",
+    "dev:debug": "node --inspect -r ts-node/register server/index.ts",
     "dev:server": "ts-node server/index.ts",
+    "generate": "graphql-codegen",
+    "lint": "./node_modules/.bin/eslint . --ext .ts,.tsx,.js --fix",
     "remove-dist": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,11 +24,16 @@
   },
   "homepage": "https://github.com/jameson-athanasiou/golf#readme",
   "devDependencies": {
-    "@craftamap/esbuild-plugin-html": "^0.3.2",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.4.8",
+    "@graphql-codegen/typescript-resolvers": "^2.6.1",
     "@snowpack/plugin-typescript": "^1.2.1",
     "@types/hapi__hapi": "^20.0.10",
     "@types/jest": "^27.4.1",
+    "@types/lodash": "^4.14.182",
+    "@types/pg": "^8.6.5",
     "@types/react-dom": "^18.0.0",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "concurrently": "^7.1.0",
@@ -33,6 +41,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "graphql-codegen": "^0.4.0",
     "jest": "^27.5.1",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
@@ -43,9 +52,14 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
+    "@graphql-tools/schema": "^8.3.10",
     "@hapi/hapi": "^20.2.1",
     "apollo-server-hapi": "^3.6.7",
+    "datasource-sql": "^2.0.1",
+    "dotenv": "^16.0.0",
     "graphql": "^16.3.0",
+    "lodash": "^4.17.21",
+    "pg": "^8.7.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   }

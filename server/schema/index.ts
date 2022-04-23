@@ -1,11 +1,7 @@
-import { gql } from 'apollo-server-hapi'
+import courseTypeDefs from './course'
 
-export default gql`
-  type Something {
-    status: String
-  }
+const typeDefs = {
+  course: courseTypeDefs,
+}
 
-  type Query {
-    something: Something
-  }
-`
+export default Object.values(typeDefs)
