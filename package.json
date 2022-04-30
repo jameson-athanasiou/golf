@@ -11,6 +11,7 @@
     "generate": "graphql-codegen",
     "lint": "./node_modules/.bin/eslint . --ext .ts,.tsx,.js --fix",
     "remove-dist": "rimraf dist",
+    "start:db": "sudo service postgresql start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -52,8 +53,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@graphql-tools/schema": "^8.3.10",
     "@hapi/hapi": "^20.2.1",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.2",
     "apollo-server-hapi": "^3.6.7",
     "datasource-sql": "^2.0.1",
     "dotenv": "^16.0.0",

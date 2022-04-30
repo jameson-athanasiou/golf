@@ -1,5 +1,5 @@
-import { mapKeys, snakeCase } from 'lodash'
-import { Resolvers } from '../../types.generated'
+import { mapKeys, snakeCase, camelCase } from 'lodash'
+import { Course, Resolvers } from '../../types.generated'
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -12,7 +12,7 @@ const resolvers: Resolvers = {
   Query: {
     getCourses: async (_, __, context) => {
       const result = await context.dataSources.databaseApi.getCourses()
-      return result
+      return result.map((course: Course) => mapKeys(course, (value, key) => camelCase(key)))
     },
   },
 }
