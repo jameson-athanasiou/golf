@@ -4,6 +4,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -21,6 +22,11 @@ export type AddCourseInput = {
   zipCode: Scalars['String'];
 };
 
+export type AddGolferInput = {
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+};
+
 export type Course = {
   __typename?: 'Course';
   city?: Maybe<Scalars['String']>;
@@ -30,19 +36,33 @@ export type Course = {
   zipCode?: Maybe<Scalars['String']>;
 };
 
+export type Golfer = {
+  __typename?: 'Golfer';
+  firstName?: Maybe<Scalars['String']>;
+  handicap?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addCourse?: Maybe<Array<Maybe<Course>>>;
+  addGolfer?: Maybe<Golfer>;
 };
 
 
 export type MutationAddCourseArgs = {
-  input?: InputMaybe<AddCourseInput>;
+  input: AddCourseInput;
+};
+
+
+export type MutationAddGolferArgs = {
+  input: AddGolferInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   getCourses?: Maybe<Array<Maybe<Course>>>;
+  getGolfers?: Maybe<Array<Maybe<Golfer>>>;
 };
 
 
@@ -115,8 +135,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   AddCourseInput: AddCourseInput;
+  AddGolferInput: AddGolferInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Course: ResolverTypeWrapper<Course>;
+  Golfer: ResolverTypeWrapper<Golfer>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -125,8 +147,10 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   AddCourseInput: AddCourseInput;
+  AddGolferInput: AddGolferInput;
   Boolean: Scalars['Boolean'];
   Course: Course;
+  Golfer: Golfer;
   Mutation: {};
   Query: {};
   String: Scalars['String'];
@@ -141,16 +165,26 @@ export type CourseResolvers<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type GolferResolvers<ContextType = any, ParentType extends ResolversParentTypes['Golfer'] = ResolversParentTypes['Golfer']> = {
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  handicap?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addCourse?: Resolver<Maybe<Array<Maybe<ResolversTypes['Course']>>>, ParentType, ContextType, Partial<MutationAddCourseArgs>>;
+  addCourse?: Resolver<Maybe<Array<Maybe<ResolversTypes['Course']>>>, ParentType, ContextType, RequireFields<MutationAddCourseArgs, 'input'>>;
+  addGolfer?: Resolver<Maybe<ResolversTypes['Golfer']>, ParentType, ContextType, RequireFields<MutationAddGolferArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getCourses?: Resolver<Maybe<Array<Maybe<ResolversTypes['Course']>>>, ParentType, ContextType>;
+  getGolfers?: Resolver<Maybe<Array<Maybe<ResolversTypes['Golfer']>>>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   Course?: CourseResolvers<ContextType>;
+  Golfer?: GolferResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };

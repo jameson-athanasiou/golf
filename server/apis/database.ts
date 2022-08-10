@@ -1,11 +1,16 @@
 import { SQLDataSource } from 'datasource-sql'
 
-type CourseValues = {
+type CourseInput = {
   city: string
   name: string
   state: string
   streetAddress: string
   zipCode: string
+}
+
+type GolferInput = {
+  firstName: string
+  lastName: string
 }
 
 const knexConfig = {
@@ -28,8 +33,16 @@ class DatabaseApi extends SQLDataSource {
     return this.knex.select('*').from('Courses')
   }
 
-  addCourse(values: CourseValues) {
+  addCourse(values: CourseInput) {
     return this.knex('Courses').insert(values)
+  }
+
+  getGolfers() {
+    return this.knex.select('*').from('Golfers')
+  }
+
+  addGolfer(values: GolferInput) {
+    return this.knex('Golfers').insert(values)
   }
 }
 

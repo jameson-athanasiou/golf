@@ -1,7 +1,4 @@
-import courseTypeDefs from './course'
+import course from './course'
+import golfer from './golfer'
 
-const typeDefs = {
-  course: courseTypeDefs,
-}
-
-export default Object.values(typeDefs)
+export default [course, golfer]

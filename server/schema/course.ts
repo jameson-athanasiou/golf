@@ -22,6 +22,6 @@ export default gql`
   }
 
   type Mutation {
-    addCourse(input: AddCourseInput): [Course]
+    addCourse(input: AddCourseInput!): [Course]
   }
 `
